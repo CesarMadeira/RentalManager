@@ -49,10 +49,7 @@ namespace RentalManager.Infra.Repositories
                         from motorcycle
                     where identifier = @identifier";
             var queryResult = await _db.QueryAsync<Motorcycle>(query, new { identifier = identifier });
-            var response = queryResult.FirstOrDefault();
-            if (response == null)
-                throw new Exception("Moto não encontrada!");
-            return response;
+            return queryResult.FirstOrDefault();
         }
 
         public async Task<List<Motorcycle>> GetByLicencePlate(string licencePlate)
