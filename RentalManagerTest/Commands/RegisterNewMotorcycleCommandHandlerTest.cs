@@ -22,13 +22,13 @@ public class RegisterNewMotorcycleCommandHandlerTest
     public async Task ShouldRegisterNewMotorcycle()
     {
         var command = new RegisterNewMotorcycleCommandHandler(_motorcycleRepository);
-        var request = new RegisterNewMotorcycleCommandRequest { Identifier = "teste123", Year = 2025, Model = "Sport", LicencePlate = "CDX-0101" };
+        var request = new RegisterNewMotorcycleCommandRequest { Id = "teste123", Year = 2025, Model = "Sport", LicencePlate = "CDX-0101" };
         await command.Handle(request);
 
-        var motorcycle = await _motorcycleRepository.Get(request.Identifier);
-        await _motorcycleRepository.Delete(request.Identifier);
+        var motorcycle = await _motorcycleRepository.Get(request.Id);
+        await _motorcycleRepository.Delete(request.Id);
 
-        Assert.AreEqual(motorcycle.Id, request.Identifier);
+        Assert.AreEqual(motorcycle.Id, request.Id);
         Assert.AreEqual(motorcycle.Model, request.Model);
         Assert.AreEqual(motorcycle.LicencePlate, request.LicencePlate);
         Assert.AreEqual(motorcycle.Year, request.Year);
@@ -38,7 +38,7 @@ public class RegisterNewMotorcycleCommandHandlerTest
     public async Task shouldNotRegisterExistingPlate()
     {
         var command = new RegisterNewMotorcycleCommandHandler(_motorcycleRepository);
-        var request = new RegisterNewMotorcycleCommandRequest { Identifier = "teste124", Year = 2025, Model = "Sport", LicencePlate = "CDX-0102" };
+        var request = new RegisterNewMotorcycleCommandRequest { Id = "teste124", Year = 2025, Model = "Sport", LicencePlate = "CDX-0102" };
         await command.Handle(request);
 
         string message = string.Empty;
@@ -51,7 +51,7 @@ public class RegisterNewMotorcycleCommandHandlerTest
             message = ex.Message;
         }
 
-        await _motorcycleRepository.Delete(request.Identifier);
+        await _motorcycleRepository.Delete(request.Id);
 
         Assert.AreEqual("Placa já cadastrada, entre em contato com o suporte!", message);
     }

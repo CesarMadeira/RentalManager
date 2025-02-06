@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RentalManager.Application.Commands.Requests;
 
-namespace RentalManager.Application.Interfaces.Commands
+namespace RentalManager.Application.Interfaces.Commands;
+
+public interface IRegisterDeliveryPersonCommandHandler
 {
-    internal interface IRegisterDeliveryPersonCommandHandler
-    {
-    }
+    Task Handle(RegisterDeliveryPersonCommandRequest request);
 }
