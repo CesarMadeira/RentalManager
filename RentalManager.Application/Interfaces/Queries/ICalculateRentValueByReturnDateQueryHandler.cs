@@ -5,5 +5,5 @@ namespace RentalManager.Application.Interfaces.Queries;
 
 public interface ICalculateRentValueByReturnDateQueryHandler
 {
-    Task<SearchMotorcycleByLicensePlateQueryResponse> Handle(SearchMotorcycleByLicensePlateQueryRequest request);
+    Task<CalculateRentValueByReturnDateQueryResponse> Handle(CalculateRentValueByDateQueryRequest request);
 }

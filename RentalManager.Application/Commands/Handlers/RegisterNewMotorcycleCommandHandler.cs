@@ -22,8 +22,8 @@ public class RegisterNewMotorcycleCommandHandler: IRegisterNewMotorcycleCommandH
             throw new Exception("Placa já cadastrada, entre em contato com o suporte!");
         }
 
-        var motorcycle = new Motorcycle(request.Identifier, request.LicencePlate, request.Model, request.Year);
+        var motorcycle = new Motorcycle(request.Id, request.LicencePlate, request.Model, request.Year);
 
-        await _motorcycleRepository.Save(motorcycle);
+        await _motorcycleRepository.Create(motorcycle);
     }
 }

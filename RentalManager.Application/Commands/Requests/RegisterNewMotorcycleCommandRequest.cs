@@ -5,7 +5,7 @@ namespace RentalManager.Application.Commands.Requests;
 public class RegisterNewMotorcycleCommandRequest
 {
     [JsonInclude, JsonPropertyName("identificador")]
-    public string Identifier { get; set; }
+    public string Id { get; set; }
     [JsonInclude, JsonPropertyName("ano")]
     public int Year { get; set; }
     [JsonInclude, JsonPropertyName("modelo")]
