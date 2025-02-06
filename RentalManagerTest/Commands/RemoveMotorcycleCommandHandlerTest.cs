@@ -33,4 +33,22 @@ public class RemoveMotorcycleCommandHandlerTest
 
         Assert.IsNull(motorcycleRemoved);
     }
+
+    [TestMethod("Deve tentar remover moto que não existe")]
+    public async Task ShouldTryRemoveMotorcycle()
+    {
+        string message = string.Empty;
+        try
+        {
+            var command = new RemoveMotorcycleCommandHandler(_motorcycleRepository);
+            var request = new RemoveMotorcycleCommandRequest { MotorcycleId = Guid.NewGuid().ToString() };
+            await command.Handle(request);
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
+
+        Assert.AreEqual("Moto não existe!", message);
+    }
 }
