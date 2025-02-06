@@ -6,5 +6,5 @@ public interface IDeliveryPersonRepository
 {
     Task Create(DeliveryPerson deliveryPerson);
     Task<DeliveryPerson> Get(string id);
-    Task Delete(string deliveryPersonId);
+    Task Delete(string id);
 }

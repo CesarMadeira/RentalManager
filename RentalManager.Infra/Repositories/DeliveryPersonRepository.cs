@@ -46,12 +46,12 @@ public class DeliveryPersonRepository : IDeliveryPersonRepository
         return queryResult.FirstOrDefault();
     }
 
-    public async Task Delete(string deliveryPersonId)
+    public async Task Delete(string id)
     {
         var query = @"delete from delivery_person where id = @id";
         await _db.ExecuteAsync(query, new
         {
-            id = deliveryPersonId
+            id = id
         });
     }
 

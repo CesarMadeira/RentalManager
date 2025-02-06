@@ -6,7 +6,7 @@ namespace RentalManager.Domain.Interfaces.Respositories
     {
         Task Create(Motorcycle motorcycle);
         Task Save(Motorcycle motorcycle);
-        Task<Motorcycle> Get(string identifier);
+        Task<Motorcycle> Get(string id);
         Task<List<Motorcycle>> GetByLicencePlate(string licencePlate);
         Task Delete(string motorcycleId);
     }

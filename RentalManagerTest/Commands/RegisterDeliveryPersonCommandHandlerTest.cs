@@ -39,7 +39,7 @@ public class RegisterDeliveryPersonCommandHandlerTest
         Assert.AreEqual(deliveryPerson.Id, request.Id);
         Assert.AreEqual(deliveryPerson.Name, request.Name);
         Assert.AreEqual(deliveryPerson.CNPJ, request.CNPJ);
-        Assert.AreEqual(deliveryPerson.DateOfBirth.ToString("yyyy-MM-dd"), request.DateOfBirth.ToString("yyyy-MM-dd"));
+        Assert.AreEqual(deliveryPerson.DateOfBirth.Date, request.DateOfBirth.Date);
         Assert.AreEqual(deliveryPerson.DocumentNumber, request.DocumentNumber);
         Assert.AreEqual(deliveryPerson.DocumentType, request.DocumentType);
     }

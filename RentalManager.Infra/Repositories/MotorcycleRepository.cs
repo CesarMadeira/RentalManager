@@ -39,7 +39,7 @@ public class MotorcycleRepository : IMotorcycleRepository
         });
     }
 
-    public async Task<Motorcycle> Get(string identifier)
+    public async Task<Motorcycle> Get(string id)
     {
         var query = @"select
                             identifier as Id,
@@ -47,8 +47,8 @@ public class MotorcycleRepository : IMotorcycleRepository
                             model,
                             year
                         from motorcycle
-                    where identifier = @identifier";
-        var queryResult = await _db.QueryAsync<Motorcycle>(query, new { identifier = identifier });
+                    where identifier = @id";
+        var queryResult = await _db.QueryAsync<Motorcycle>(query, new { id = id });
         return queryResult.FirstOrDefault();
     }
 
