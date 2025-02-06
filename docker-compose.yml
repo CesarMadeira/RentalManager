@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  rentalmanager:
+    image: ${DOCKER_REGISTRY-}rentalmanager
+    container_name: rentalmanager
+    build:
+      context: .
+      dockerfile: RentalManager/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+
+  rentalmanager.database:
+    image: postgres:latest
+    container_name: rentalmanager.database
+    environment:
+      POSTGRES_DB: rentalmanager_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./containers/products-db:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
