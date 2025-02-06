@@ -28,7 +28,7 @@ namespace RentalManagerTest.Commands
             var motorcycle = await _motorcycleRepository.Get(request.Identifier);
             await _motorcycleRepository.Delete(request.Identifier);
 
-            Assert.AreEqual(motorcycle.Identifier, request.Identifier);
+            Assert.AreEqual(motorcycle.Id, request.Identifier);
             Assert.AreEqual(motorcycle.Model, request.Model);
             Assert.AreEqual(motorcycle.LicencePlate, request.LicencePlate);
             Assert.AreEqual(motorcycle.Year, request.Year);

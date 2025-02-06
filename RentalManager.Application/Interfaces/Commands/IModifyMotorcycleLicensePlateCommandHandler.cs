@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RentalManager.Application.Commands.Requests;
 
-namespace RentalManager.Application.Interfaces.Commands
+namespace RentalManager.Application.Interfaces.Commands;
+
+public interface IModifyMotorcycleLicensePlateCommandHandler
 {
-    internal interface IModifyMotorcycleLicensePlateCommandHandler
-    {
-    }
+    Task Handle(ModifyMotorcycleLicensePlateCommandRequest request);
 }

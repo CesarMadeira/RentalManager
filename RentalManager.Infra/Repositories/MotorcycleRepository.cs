@@ -15,12 +15,24 @@ namespace RentalManager.Infra.Repositories
             _db = databaseConnection.CreateConnection();
         }
 
-        public async Task Save(Motorcycle motorcycle)
+        public async Task Create(Motorcycle motorcycle)
         {
             var query = @"insert into motorcycle values (@identifier, @licence_plate, @model, @year)";
             await _db.ExecuteAsync(query, new
             {
-                identifier = motorcycle.Identifier,
+                identifier = motorcycle.Id,
+                licence_plate = motorcycle.LicencePlate,
+                model = motorcycle.Model,
+                year = motorcycle.Year
+            });
+        }
+
+        public async Task Save(Motorcycle motorcycle)
+        {
+            var query = @"update motorcycle set licence_plate = @licence_plate, model = @model, year = @year where identifier = @id";
+            await _db.ExecuteAsync(query, new
+            {
+                id = motorcycle.Id,
                 licence_plate = motorcycle.LicencePlate,
                 model = motorcycle.Model,
                 year = motorcycle.Year
@@ -30,7 +42,7 @@ namespace RentalManager.Infra.Repositories
         public async Task<Motorcycle> Get(string identifier)
         {
             var query = @"select
-                            identifier,
+                            identifier as Id,
                             licence_plate as licenceplate,
                             model,
                             year
@@ -46,7 +58,7 @@ namespace RentalManager.Infra.Repositories
         public async Task<List<Motorcycle>> GetByLicencePlate(string licencePlate)
         {
             var query = @"select
-                            identifier,
+                            identifier as Id,
                             licence_plate as licenceplate,
                             model,
                             year
@@ -54,8 +66,6 @@ namespace RentalManager.Infra.Repositories
                     where licence_plate like @licencePlate";
 
             var queryResult = await _db.QueryAsync<Motorcycle>(query, new { licencePlate = $"%{licencePlate}%" });
-
-            //var queryResult = await _db.QueryAsync<Motorcycle>(query, new { licencePlate = licencePlate });
             return queryResult.ToList();
         }
 

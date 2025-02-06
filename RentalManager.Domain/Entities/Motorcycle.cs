@@ -2,18 +2,22 @@
 {
     public class Motorcycle
     {
-        public Motorcycle(string identifier, string licencePlate, string model, int year)
+        public Motorcycle(string id, string licencePlate, string model, int year)
         {
-            //if (string.IsNullOrWhiteSpace(identifier))
-            Identifier = identifier;
+            Id = id;
             LicencePlate = licencePlate;
             Model = model;
             Year = year;
         }
 
-        public string Identifier { get; set; }
-        public string LicencePlate { get; set; }
-        public string Model { get; set; }
-        public int Year { get; set; }
+        public string Id { get; private set; }
+        public string LicencePlate { get; private set; }
+        public string Model { get; private set; }
+        public int Year { get; private set; }
+
+        public void SetLicencePlate(string licencePlate)
+        {
+            LicencePlate = licencePlate;
+        }
     }
 }

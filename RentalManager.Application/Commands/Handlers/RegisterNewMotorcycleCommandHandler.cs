@@ -24,6 +24,6 @@ public class RegisterNewMotorcycleCommandHandler: IRegisterNewMotorcycleCommandH
 
         var motorcycle = new Motorcycle(request.Identifier, request.LicencePlate, request.Model, request.Year);
 
-        await _motorcycleRepository.Save(motorcycle);
+        await _motorcycleRepository.Create(motorcycle);
     }
 }

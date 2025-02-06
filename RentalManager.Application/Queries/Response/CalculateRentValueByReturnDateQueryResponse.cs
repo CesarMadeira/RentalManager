@@ -2,4 +2,5 @@
 
 public class CalculateRentValueByReturnDateQueryResponse
 {
+    public decimal RentalValue { get; set; }
 }

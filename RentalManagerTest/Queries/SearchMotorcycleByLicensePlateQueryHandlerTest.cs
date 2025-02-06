@@ -22,9 +22,9 @@ namespace RentalManagerTest.Queries
         [TestMethod("Deve buscar uma moto pela placa")]
         public async Task ShouldSearchMotorcycleByLicensePlateUse()
         {
-            await _motorcycleRepository.Save(new Motorcycle("moto123", "CDX-0101", "Sport", 2020));
-            await _motorcycleRepository.Save(new Motorcycle("moto123", "CDX-0102", "Sport", 2020));
-            await _motorcycleRepository.Save(new Motorcycle("moto123", "AAA-0103", "Sport", 2020));
+            await _motorcycleRepository.Create(new Motorcycle("moto123", "CDX-0101", "Sport", 2020));
+            await _motorcycleRepository.Create(new Motorcycle("moto123", "CDX-0102", "Sport", 2020));
+            await _motorcycleRepository.Create(new Motorcycle("moto123", "AAA-0103", "Sport", 2020));
 
             var searchMotorcycleByLicensePlateQueryHandler = new SearchMotorcycleByLicensePlateQueryHandler(_motorcycleRepository);
             var response = await searchMotorcycleByLicensePlateQueryHandler.Handle(new SearchMotorcycleByLicensePlateQueryRequest

@@ -1,6 +1,6 @@
 ﻿namespace RentalManager.Application.Queries.Request;
 
-public class CalculateRentValueByReturnDateQueryRequest
+public class CalculateRentValueByDateQueryRequest
 {
-    public DateTime ReturnDate { get; set; }
+    public DateTime Returnate { get; set; }
 }
