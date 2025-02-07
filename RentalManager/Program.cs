@@ -1,6 +1,13 @@
+using RentalManager.Extensions;
+using RentalManager.Infra.Dapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddSingleton<DatabaseConnection>(provider => new DatabaseConnection(connectionString));
+
 // Add services to the container.
+builder.Services.RegisterApiServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -52,7 +52,7 @@ public class MotorcycleRepository : IMotorcycleRepository
         return queryResult.FirstOrDefault();
     }
 
-    public async Task<List<Motorcycle>> GetByLicencePlate(string licencePlate)
+    public async Task<Motorcycle> GetByLicencePlate(string licencePlate)
     {
         var query = @"select
                             identifier as Id,
@@ -63,7 +63,7 @@ public class MotorcycleRepository : IMotorcycleRepository
                     where licence_plate like @licencePlate";
 
         var queryResult = await _db.QueryAsync<Motorcycle>(query, new { licencePlate = $"%{licencePlate}%" });
-        return queryResult.ToList();
+        return queryResult.FirstOrDefault();
     }
 
     public async Task Delete(string motorcycleId)

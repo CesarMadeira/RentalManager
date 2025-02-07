@@ -16,6 +16,9 @@ public class RegisterDeliveryPersonCommandHandler : IRegisterDeliveryPersonComma
 
     public async Task Handle(RegisterDeliveryPersonCommandRequest request)
     {
+        // TODO validar CNPJ - valueObject
+        // TODO validar CNH - valueObject
+
         var deliveryPerson = new DeliveryPerson(request.Id, request.Name, request.CNPJ, request.DateOfBirth, request.DocumentNumber, request.DocumentType, null);
         await _deliveryPersonRepository.Create(deliveryPerson);
     }

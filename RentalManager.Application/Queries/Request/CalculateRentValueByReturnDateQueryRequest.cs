@@ -2,5 +2,6 @@
 
 public class CalculateRentValueByDateQueryRequest
 {
-    public DateTime Returnate { get; set; }
+    public string RentId { get; set; }
+    public DateTime EndDate { get; set; }
 }
