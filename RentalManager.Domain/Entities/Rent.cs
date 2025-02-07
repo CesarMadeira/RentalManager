@@ -50,6 +50,6 @@ public class Rent
         }
 
         DateTime endDate = returnDate.HasValue ? returnDate.Value : EndForecast;
-        return (endDate - Start).Days  * cost;
+        return ((endDate - Start).Days == 0 ? 1 : (endDate - Start).Days) * cost;
     }
 }

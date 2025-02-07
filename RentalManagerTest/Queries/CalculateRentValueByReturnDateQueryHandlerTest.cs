@@ -105,5 +105,30 @@ namespace RentalManagerTest.Queries
 
             Assert.AreEqual(310, response.RentalValue);
         }
+
+        [TestMethod("Deve calcular valor a ser pago com quantidade minima de dias")]
+        public async Task ShouldCalculateRentValueByReturnDateAfterForecastWithMinimumDays()
+        {
+            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "123456", DateTime.Now, "123456", "A", null);
+            await _deliveryPersonRepository.Create(deliveryPerson);
+
+            var motorcycle = new Motorcycle(Guid.NewGuid().ToString(), "CDX-9999", "Sport", 2025);
+            await _motorcycleRepository.Create(motorcycle);
+
+            var rent = new Rent(Guid.NewGuid().ToString(), deliveryPerson.Id, motorcycle.Id, new DateTime(2025, 02, 7), null, new DateTime(2025, 02, 14), 7);
+            await _rentRepository.Create(rent);
+
+            var queryHandler = new CalculateRentValueByReturnDateQueryHandler(_rentRepository);
+            var request = new CalculateRentValueByDateQueryRequest
+            {
+                RentId = rent.Id,
+                EndDate = new DateTime(2025, 02, 07)
+            };
+            var response = await queryHandler.Handle(request);
+
+            await _motorcycleRepository.Delete("moto123");
+
+            Assert.AreEqual(72, response.RentalValue);
+        }
     }
 }

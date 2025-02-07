@@ -29,15 +29,8 @@ public class MotorcycleController : ControllerBase
         _modifyMotorcycleLicensePlateCommandHandler = modifyMotorcycleLicensePlateCommandHandler;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Post(RegisterNewMotorcycleCommandRequest request)
-    {
-        await _registerNewMotorcycleCommandHandler.Handle(request);
-        return Ok(new { message = "Moto cadastrada com sucesso!" });
-    }
-
     [HttpGet]
-    public async Task<IActionResult> Index(string? placa)
+    public async Task<IActionResult> Get(string? placa)
     {
         var response = await _searchMotorcycleByLicensePlateQueryHandler.Handle(new SearchMotorcycleByLicensePlateQueryRequest
         {
@@ -54,6 +47,13 @@ public class MotorcycleController : ControllerBase
             MotorcycleId = id
         });
         return Ok(response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Post(RegisterNewMotorcycleCommandRequest request)
+    {
+        await _registerNewMotorcycleCommandHandler.Handle(request);
+        return Ok(new { message = "Moto cadastrada com sucesso!" });
     }
 
     [HttpPut("{id}/placa")]

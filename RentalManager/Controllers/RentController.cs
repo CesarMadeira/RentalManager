@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentalManager.Application.Interfaces.Queries;
+using RentalManager.Application.Queries.Request;
 
 namespace RentalManager.Controllers;
 
@@ -6,8 +8,15 @@ namespace RentalManager.Controllers;
 [Route("locacao")]
 public class RentController : ControllerBase
 {
+    private readonly ICalculateRentValueByReturnDateQueryHandler _calculateRentValueByReturnDateQueryHandler;
+
+    public RentController(ICalculateRentValueByReturnDateQueryHandler calculateRentValueByReturnDateQueryHandler)
+    {
+        _calculateRentValueByReturnDateQueryHandler = calculateRentValueByReturnDateQueryHandler;
+    }
+
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Get()
     {
         return Ok();
     }
@@ -19,8 +28,10 @@ public class RentController : ControllerBase
     }
 
     [HttpPut("{id}/devolucao")]
-    public IActionResult Put()
+    public async Task<IActionResult> Put(string id, CalculateRentValueByDateQueryRequest request)
     {
-        return Ok();
+        request.RentId = id;
+        var response = await _calculateRentValueByReturnDateQueryHandler.Handle(request);
+        return Ok(response);
     }
 }
