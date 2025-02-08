@@ -10,7 +10,6 @@ public class RegisterNewMotorcycleCommandRequest
     public string Id { get; set; }
 
     [Required]
-    [MinLength(4)]
     [JsonInclude, JsonPropertyName("ano")]
     public int Year { get; set; }
 
