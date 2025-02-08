@@ -12,26 +12,30 @@ public class RentController : ControllerBase
 {
     private readonly IRentMotorcycleCommandHandler _rentMotorcycleCommandHandler;
     private readonly ICalculateRentValueByReturnDateQueryHandler _calculateRentValueByReturnDateQueryHandler;
+    private readonly IGetRentByIdQueryHandler _getRentByIdQueryHandler;
 
     public RentController(
         IRentMotorcycleCommandHandler rentMotorcycleCommandHandler,
-        ICalculateRentValueByReturnDateQueryHandler calculateRentValueByReturnDateQueryHandler)
+        ICalculateRentValueByReturnDateQueryHandler calculateRentValueByReturnDateQueryHandler,
+        IGetRentByIdQueryHandler getRentByIdQueryHandler)
     {
         _rentMotorcycleCommandHandler = rentMotorcycleCommandHandler;
         _calculateRentValueByReturnDateQueryHandler = calculateRentValueByReturnDateQueryHandler;
+        _getRentByIdQueryHandler = getRentByIdQueryHandler;
     }
 
-    [HttpGet]
-    public IActionResult Get()
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(string id)
     {
-        return Ok();
+        var response = await _getRentByIdQueryHandler.Handle(new GetRentByIdQueryRequest { RentId = id });
+        return Ok(new {data = response});
     }
 
     [HttpPost]
     public async Task<IActionResult> Post(RentMotorcycleCommandRequest request)
     {
-        await _rentMotorcycleCommandHandler.Handle(request);
-        return Created("", new { message = "Locação criada com sucesso!" });
+        var response = await _rentMotorcycleCommandHandler.Handle(request);
+        return Created("", new { message = "Locação criada com sucesso!", data = response });
     }
 
     [HttpPut("{id}/devolucao")]

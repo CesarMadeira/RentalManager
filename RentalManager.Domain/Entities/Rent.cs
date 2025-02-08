@@ -31,13 +31,13 @@ public class Rent
 
     public decimal CalculateRentalValueForecast(DateTime endDate)
     {
-        if (endDate > EndForecast)
+        if (endDate.Date > EndForecast.Date)
         {
-            return CalculateRentalValueForecast() + ((endDate - EndForecast).Days * 50);
+            return CalculateRentalValueForecast() + ((endDate.Date - EndForecast.Date).Days * 50);
         }
         else
         {
-            return ((decimal)((EndForecast - endDate).Days * PlanValue() * ApplyFine())) + ((endDate - Start).Days * PlanValue());
+            return ((decimal)((EndForecast.Date - endDate.Date).Days * PlanValue() * ApplyFine())) + ((endDate.Date - Start.Date).Days * PlanValue());
         }
     }
 
@@ -46,7 +46,7 @@ public class Rent
         return (EndForecast - Start).Days * PlanValue();
     }
 
-    private int PlanValue()
+    public int PlanValue()
     {
         switch (Plan)
         {

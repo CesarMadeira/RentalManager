@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ISearchMotorcycleByLicensePlateQueryHandler, SearchMotorcycleByLicensePlateQueryHandler>();
         services.AddScoped<IGetMotorcycleByIdQueryHandler, GetMotorcycleByIdQueryHandler>();
         services.AddScoped<ICalculateRentValueByReturnDateQueryHandler, CalculateRentValueByReturnDateQueryHandler>();
+        services.AddScoped<IGetRentByIdQueryHandler, GetRentByIdQueryHandler>();
 
         //repositorios
         services.AddScoped<IDeliveryPersonRepository, DeliveryPersonRepository>();

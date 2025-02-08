@@ -1,4 +1,5 @@
 ﻿using RentalManager.Application.Commands.Requests;
+using RentalManager.Application.Commands.Responses;
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Domain.Entities;
 using RentalManager.Domain.Exceptions;
@@ -22,7 +23,7 @@ public class RentMotorcycleCommandHandler : IRentMotorcycleCommandHandler
         _motorcycleRepository = motorcycleRepository;
     }
 
-    public async Task Handle(RentMotorcycleCommandRequest request)
+    public async Task<RentMotorcycleCommandResponse> Handle(RentMotorcycleCommandRequest request)
     {
         if (request.Plan == 0)
             throw new BusinessException("Escolha um dos planos: 7, 15, 30, 45 ou 50!");
@@ -39,7 +40,7 @@ public class RentMotorcycleCommandHandler : IRentMotorcycleCommandHandler
             throw new BusinessException("Categoria da CNH não permitida para a locação!");
 
         var rent = new Rent(
-            request.Id,
+            request.Id ?? Guid.NewGuid().ToString(),
             request.DeliveryPersonId,
             request.MotorcycleId,
             StartTheNextDay(request.Start),
@@ -48,6 +49,17 @@ public class RentMotorcycleCommandHandler : IRentMotorcycleCommandHandler
             request.Plan);
         
         await _rentRepository.Create(rent);
+
+        return new RentMotorcycleCommandResponse
+        {
+            Id = rent.Id,
+            DeliveryPersonId = deliveryPerson.Id,
+            MotorcycleId = rent.MotorcycleId,
+            Start = rent.Start,
+            Finish = rent.Finish,
+            EndForecast = rent.EndForecast,
+            Plan = rent.Plan,
+        };
     }
 
     public DateTime StartTheNextDay(DateTime date)
