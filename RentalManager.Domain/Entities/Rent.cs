@@ -1,4 +1,6 @@
-﻿namespace RentalManager.Domain.Entities;
+﻿using RentalManager.Domain.Exceptions;
+
+namespace RentalManager.Domain.Entities;
 
 public class Rent
 {
@@ -27,29 +29,53 @@ public class Rent
         Finish = date;
     }
 
-    public decimal CalculateTotalValue(DateTime? returnDate = null)
+    public decimal CalculateRentalValueForecast(DateTime endDate)
     {
-        decimal cost = 0;
+        if (endDate > EndForecast)
+        {
+            return CalculateRentalValueForecast() + ((endDate - EndForecast).Days * 50);
+        }
+        else
+        {
+            return ((decimal)((EndForecast - endDate).Days * PlanValue() * ApplyFine())) + ((endDate - Start).Days * PlanValue());
+        }
+    }
+
+    public decimal CalculateRentalValueForecast()
+    {
+        return (EndForecast - Start).Days * PlanValue();
+    }
+
+    private int PlanValue()
+    {
         switch (Plan)
         {
             case 7:
-                cost = 30;
-                break;
+                return 30;
             case 15:
-                cost = 28;
-                break;
+                return 28;
             case 30:
-                cost = 22;
-                break;
+                return 22;
             case 45:
-                cost = 20;
-                break;
+                return 20;
             case 50:
-                cost = 18;
-                break;
+                return 18;
         }
+        throw new BusinessException("Plano não encontrado!");
+    }
 
-        DateTime endDate = returnDate.HasValue ? returnDate.Value : EndForecast;
-        return ((endDate - Start).Days == 0 ? 1 : (endDate - Start).Days) * cost;
+    private double ApplyFine()
+    {
+        const double TWENTY_PERCENTAGE_FINE = 0.2;
+        const double FORTY_PERCENTAGE_FINE = 0.4;
+
+        switch (Plan)
+        {
+            case 7:
+                return TWENTY_PERCENTAGE_FINE;
+            case 15:
+                return FORTY_PERCENTAGE_FINE;
+        }
+        throw new BusinessException($"Porcentagem não definida para esse plano: {Plan.ToString()}");
     }
 }

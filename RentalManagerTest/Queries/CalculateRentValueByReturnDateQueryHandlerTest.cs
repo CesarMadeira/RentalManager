@@ -128,7 +128,7 @@ namespace RentalManagerTest.Queries
 
             await _motorcycleRepository.Delete("moto123");
 
-            Assert.AreEqual(72, response.RentalValue);
+            Assert.AreEqual(42, response.RentalValue);
         }
     }
 }

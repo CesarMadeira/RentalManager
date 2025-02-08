@@ -23,23 +23,7 @@ public class CalculateRentValueByReturnDateQueryHandler : ICalculateRentValueByR
         if (rent == null)
             throw new BusinessException("Locação não encontrada!");
 
-        if (request.EndDate == rent.EndForecast)
-            return new CalculateRentValueByReturnDateQueryResponse { RentalValue = rent.CalculateTotalValue() };
+        return new CalculateRentValueByReturnDateQueryResponse { RentalValue = rent.CalculateRentalValueForecast(request.EndDate) };
 
-        decimal total = 0;
-        if (request.EndDate > rent.EndForecast)
-        {
-            total = ((request.EndDate - rent.EndForecast).Days * 50) + rent.CalculateTotalValue();
-        }
-        else
-        {
-            if (rent.Plan == 7)
-                total = ((decimal)((rent.EndForecast - request.EndDate).Days * 30 * 0.2)) + rent.CalculateTotalValue(request.EndDate);
-            if (rent.Plan == 15)
-                total = ((decimal)((rent.EndForecast - request.EndDate).Days * 28 * 0.4)) + rent.CalculateTotalValue(request.EndDate);
-        }
-        return new CalculateRentValueByReturnDateQueryResponse { RentalValue = total };
     }
-
-    //private decimal CalculateRentValue()
 }
