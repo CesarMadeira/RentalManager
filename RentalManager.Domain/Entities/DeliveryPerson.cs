@@ -12,8 +12,14 @@ namespace RentalManager.Domain.Entities
             CNPJ = new CNPJ(cnpj);
             DateOfBirth = dateOfBirth;
             DocumentNumber = new CNH(documentNumber);
-            DocumentType= documentType;
             DocumentImage = documentImage;
+
+            if (documentType != "A" &&
+                documentType != "B" &&
+                documentType != "A+B")
+                throw new ArgumentException("Categoria da CNH não permitida");
+
+            DocumentType = documentType;
         }
 
         public string Id { get; private set; }

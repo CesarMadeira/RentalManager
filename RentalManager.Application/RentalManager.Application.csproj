@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\Responses\**" />
+    <EmbeddedResource Remove="Commands\Responses\**" />
+    <None Remove="Commands\Responses\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RentalManager.Domain\RentalManager.Domain.csproj" />
     <ProjectReference Include="..\RentalManager.Infra\RentalManager.Infra.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\Responses\" />
   </ItemGroup>
 
 </Project>

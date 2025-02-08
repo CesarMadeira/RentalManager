@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
-using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Controllers;
 

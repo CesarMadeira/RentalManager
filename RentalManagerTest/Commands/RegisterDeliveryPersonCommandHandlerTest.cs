@@ -43,4 +43,32 @@ public class RegisterDeliveryPersonCommandHandlerTest
         Assert.AreEqual(deliveryPerson.DocumentNumber.Value, request.DocumentNumber);
         Assert.AreEqual(deliveryPerson.DocumentType, request.DocumentType);
     }
+
+    [TestMethod("Deve validar um cadastro de categoria diferente A, B e A+B")]
+    public async Task ShouldValidateCategory()
+    {
+        var command = new RegisterDeliveryPersonCommandHandler(_deliveryPersonRepository);
+        var request = new RegisterDeliveryPersonCommandRequest
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "João da Silva",
+            CNPJ = "81388311000171",
+            DateOfBirth = DateTime.Now,
+            DocumentNumber = "34569709670",
+            DocumentType = "C"
+        };
+        
+        string message = string.Empty;
+        try
+        {
+            await command.Handle(request);
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
+
+        Assert.AreEqual("Categoria da CNH não permitida", message);
+
+    }
 }
