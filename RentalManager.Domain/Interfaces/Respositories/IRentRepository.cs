@@ -7,4 +7,5 @@ public interface IRentRepository
     Task Create(Rent rent);
     Task<Rent> Get(string id);
     Task Delete(string id);
+    Task<bool> HasRentals(string motocycleId);
 }

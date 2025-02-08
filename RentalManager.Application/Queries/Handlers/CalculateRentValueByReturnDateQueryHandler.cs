@@ -17,8 +17,6 @@ public class CalculateRentValueByReturnDateQueryHandler : ICalculateRentValueByR
 
     public async Task<CalculateRentValueByReturnDateQueryResponse> Handle(CalculateRentValueByDateQueryRequest request)
     {
-        // TODO refatorar calculo do valor total
-
         var rent = await _rentRepository.Get(request.RentId);
         if (rent == null)
             throw new BusinessException("Locação não encontrada!");

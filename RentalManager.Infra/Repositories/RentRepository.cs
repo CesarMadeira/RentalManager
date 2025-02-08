@@ -61,4 +61,14 @@ public class RentRepository : IRentRepository
             throw;
         }
     }
+
+    public async Task<bool> HasRentals(string motocycleId)
+    {
+        var query = @"select 
+		                    case when count(*) > 0 then 1 else 0 end as response
+	                    from rent 
+                    where motorcycle_id = @motocycleId";
+        var queryResult = await _db.QueryAsync<bool>(query, new { motocycleId = motocycleId });
+        return queryResult.FirstOrDefault();
+    }
 }
