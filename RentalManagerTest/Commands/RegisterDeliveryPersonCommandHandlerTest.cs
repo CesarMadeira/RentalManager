@@ -1,5 +1,6 @@
 ﻿using RentalManager.Application.Commands.Handlers;
 using RentalManager.Application.Commands.Requests;
+using RentalManager.Domain.Entities;
 using RentalManager.Domain.Interfaces.Respositories;
 using RentalManager.Infra.Dapper;
 using RentalManager.Infra.Repositories;
@@ -69,6 +70,70 @@ public class RegisterDeliveryPersonCommandHandlerTest
         }
 
         Assert.AreEqual("Categoria da CNH não permitida!", message);
+    }
 
+
+    [TestMethod("Deve validar se cnpj ja existe")]
+    public async Task ShouldValidateIfCNPJExists()
+    {
+        var newDeliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), null, "71843024000150", DateTime.Now, "12327943590", "A", null);
+        await _deliveryPersonRepository.Create(newDeliveryPerson);
+
+        var command = new RegisterDeliveryPersonCommandHandler(_deliveryPersonRepository);
+        var request = new RegisterDeliveryPersonCommandRequest
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "João da Silva",
+            CNPJ = "71843024000150",
+            DateOfBirth = DateTime.Now,
+            DocumentNumber = "12327943590",
+            DocumentType = "A"
+        };
+
+        string message = string.Empty;
+        try
+        {
+            await command.Handle(request);
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
+
+        await _deliveryPersonRepository.Delete(newDeliveryPerson.Id);
+
+        Assert.AreEqual($"Ja existe um entregador com esse CNPJ: {request.CNPJ}", message);
+    }
+
+    [TestMethod("Deve validar se cnh ja existe")]
+    public async Task ShouldValidateIfCNHExists()
+    {
+        var newDeliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), null, "29562457000171", DateTime.Now, "05369875840", "A", null);
+        await _deliveryPersonRepository.Create(newDeliveryPerson);
+
+        var command = new RegisterDeliveryPersonCommandHandler(_deliveryPersonRepository);
+        var request = new RegisterDeliveryPersonCommandRequest
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "João da Silva",
+            CNPJ = "26868865000168",
+            DateOfBirth = DateTime.Now,
+            DocumentNumber = "05369875840",
+            DocumentType = "A"
+        };
+
+        string message = string.Empty;
+        try
+        {
+            await command.Handle(request);
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
+
+        await _deliveryPersonRepository.Delete(newDeliveryPerson.Id);
+
+        Assert.AreEqual($"Ja existe um entregador com essa CNH: {request.DocumentNumber}", message);
     }
 }

@@ -51,7 +51,9 @@ namespace RentalManagerTest.Queries
             };
             var response = await queryHandler.Handle(request);
 
-            await _motorcycleRepository.Delete("moto123");
+            await _deliveryPersonRepository.Delete(deliveryPerson.Id);
+            await _motorcycleRepository.Delete(motorcycle.Id);
+            await _rentRepository.Delete(rent.Id);
 
             Assert.AreEqual(210, response.RentalValue);
         }
@@ -76,8 +78,10 @@ namespace RentalManagerTest.Queries
             };
             var response = await queryHandler.Handle(request);
 
-            await _motorcycleRepository.Delete("moto123");
-            
+            await _deliveryPersonRepository.Delete(deliveryPerson.Id);
+            await _motorcycleRepository.Delete(motorcycle.Id);
+            await _rentRepository.Delete(rent.Id);
+
             Assert.AreEqual(162, response.RentalValue);
         }
 
@@ -101,7 +105,9 @@ namespace RentalManagerTest.Queries
             };
             var response = await queryHandler.Handle(request);
 
-            await _motorcycleRepository.Delete("moto123");
+            await _deliveryPersonRepository.Delete(deliveryPerson.Id);
+            await _motorcycleRepository.Delete(motorcycle.Id);
+            await _rentRepository.Delete(rent.Id);
 
             Assert.AreEqual(310, response.RentalValue);
         }
@@ -126,7 +132,9 @@ namespace RentalManagerTest.Queries
             };
             var response = await queryHandler.Handle(request);
 
-            await _motorcycleRepository.Delete("moto123");
+            await _deliveryPersonRepository.Delete(deliveryPerson.Id);
+            await _motorcycleRepository.Delete(motorcycle.Id);
+            await _rentRepository.Delete(rent.Id);
 
             Assert.AreEqual(42, response.RentalValue);
         }

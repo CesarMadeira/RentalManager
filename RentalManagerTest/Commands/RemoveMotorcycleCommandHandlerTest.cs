@@ -76,6 +76,9 @@ public class RemoveMotorcycleCommandHandlerTest
             message = ex.Message;
         }
 
+        await _motorcycleRepository.Delete(motorcycle.Id);
+        await _rentRepository.Delete(rent.Id);
+
         Assert.AreEqual("Não foi possivel remover, moto ja foi alugada!", message);
     }
 }

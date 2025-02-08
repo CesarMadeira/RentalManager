@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using RentalManager.Domain.Entities;
 using RentalManager.Domain.Interfaces.Respositories;
+using RentalManager.Domain.ValueObject;
 using RentalManager.Infra.Dapper;
 using System.Data;
 
@@ -49,10 +50,40 @@ public class DeliveryPersonRepository : IDeliveryPersonRepository
     public async Task Delete(string id)
     {
         var query = @"delete from delivery_person where id = @id";
-        await _db.ExecuteAsync(query, new
-        {
-            id = id
-        });
+        await _db.ExecuteAsync(query, new { id = id });
     }
 
+    public async Task<DeliveryPerson> GetByCNPJ(CNPJ cnpj)
+    {
+        var query = @"
+                    select
+	                    id,
+	                    name,
+	                    cnpj,
+	                    date_of_birth as dateOfBirth,
+	                    document_number as documentNumber,
+	                    document_type as documentType,
+	                    document_image as documentImage
+                    from delivery_person
+                    where cnpj = @cnpj";
+        var queryResult = await _db.QueryAsync<DeliveryPerson>(query, new { cnpj = cnpj.Value });
+        return queryResult.FirstOrDefault();
+    }
+
+    public async Task<DeliveryPerson> GetByCNH(CNH cnh)
+    {
+        var query = @"
+                    select
+	                    id,
+	                    name,
+	                    cnpj,
+	                    date_of_birth as dateOfBirth,
+	                    document_number as documentNumber,
+	                    document_type as documentType,
+	                    document_image as documentImage
+                    from delivery_person
+                    where document_number = @cnh";
+        var queryResult = await _db.QueryAsync<DeliveryPerson>(query, new { cnh = cnh.Value });
+        return queryResult.FirstOrDefault();
+    }
 }
