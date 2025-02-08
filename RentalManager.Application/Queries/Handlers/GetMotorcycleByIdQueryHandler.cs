@@ -16,8 +16,9 @@ namespace RentalManager.Application.Queries.Handlers
 
         public async Task<GetMotorcycleByIdQueryResponse> Handle(GetMotorcycleByIdQueryRequest request)
         {
-            // TODO verificar quando solicita um id invalido
             var motorcycle = await _motorcycleRepository.Get(request.MotorcycleId);
+            if (motorcycle == null)
+                throw new ArgumentException("Moto não existe!");
             return new GetMotorcycleByIdQueryResponse
             {
                 Id = motorcycle.Id,
