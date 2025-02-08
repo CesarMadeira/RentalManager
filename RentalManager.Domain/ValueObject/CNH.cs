@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using RentalManager.Domain.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace RentalManager.Domain.ValueObject;
 
@@ -9,10 +10,7 @@ public class CNH
     public CNH(string value)
     {
         if (!IsValid(value))
-        {
-            throw new ArgumentException("CNH inválida.", nameof(value));
-        }
-
+            throw new BusinessException($"CNH inválida. {nameof(value)}");
         _value = value;
     }
 

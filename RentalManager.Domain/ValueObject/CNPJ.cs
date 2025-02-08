@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using RentalManager.Domain.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace RentalManager.Domain.ValueObject;
 
@@ -9,10 +10,7 @@ public class CNPJ
     public CNPJ(string value)
     {
         if (!IsValid(value))
-        {
-            throw new ArgumentException("CNPJ inválido.", nameof(value));
-        }
-
+            throw new BusinessException($"CNPJ inválido. {nameof(value)}");
         _value = value;
     }
 
@@ -23,9 +21,7 @@ public class CNPJ
     public override bool Equals(object obj)
     {
         if (obj is CNPJ other)
-        {
             return _value == other._value;
-        }
         return false;
     }
 
@@ -33,19 +29,13 @@ public class CNPJ
 
     private bool IsValid(string cnpj)
     {
-        // Remove caracteres especiais
         cnpj = cnpj?.Replace(".", "").Replace("/", "").Replace("-", "").Trim();
-
-        // Verifica se o CNPJ possui 14 dígitos
         if (cnpj.Length != 14 || !Regex.IsMatch(cnpj, @"^\d+$"))
         {
             return false;
         }
-
-        // Cálculo dos dígitos verificadores
         var digit1 = CalculateDigit(cnpj.Substring(0, 12), 5);
         var digit2 = CalculateDigit(cnpj.Substring(0, 12) + digit1, 6);
-
         return cnpj.EndsWith($"{digit1}{digit2}");
     }
 
