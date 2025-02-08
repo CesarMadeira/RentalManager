@@ -1,5 +1,6 @@
 ﻿using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
+using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Application.Commands.Handlers
@@ -17,7 +18,7 @@ namespace RentalManager.Application.Commands.Handlers
         {
             var motorcycle = await _motorcycleRepository.Get(request.MotorcycleId);
             if (motorcycle == null)
-                throw new Exception("Moto não existe!");
+                throw new BusinessException("Moto não existe!");
             await _motorcycleRepository.Delete(request.MotorcycleId);
         }
     }

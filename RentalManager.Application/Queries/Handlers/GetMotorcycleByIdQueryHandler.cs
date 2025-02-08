@@ -1,6 +1,7 @@
 ﻿using RentalManager.Application.Interfaces.Queries;
 using RentalManager.Application.Queries.Request;
 using RentalManager.Application.Queries.Response;
+using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Application.Queries.Handlers
@@ -18,7 +19,7 @@ namespace RentalManager.Application.Queries.Handlers
         {
             var motorcycle = await _motorcycleRepository.Get(request.MotorcycleId);
             if (motorcycle == null)
-                throw new ArgumentException("Moto não existe!");
+                throw new BusinessException("Moto não existe!");
             return new GetMotorcycleByIdQueryResponse
             {
                 Id = motorcycle.Id,

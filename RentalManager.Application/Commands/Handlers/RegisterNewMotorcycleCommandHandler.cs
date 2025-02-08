@@ -1,6 +1,7 @@
 ﻿using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Domain.Entities;
+using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Application.Commands.Handlers;
@@ -19,7 +20,7 @@ public class RegisterNewMotorcycleCommandHandler: IRegisterNewMotorcycleCommandH
         var validateMotocyle = await _motorcycleRepository.GetByLicencePlate(request.LicencePlate);
         if (validateMotocyle != null)
         {
-            throw new Exception("Placa já cadastrada, entre em contato com o suporte!");
+            throw new BusinessException("Placa já foi cadastrada!");
         }
 
         var motorcycle = new Motorcycle(request.Id, request.LicencePlate, request.Model, request.Year);

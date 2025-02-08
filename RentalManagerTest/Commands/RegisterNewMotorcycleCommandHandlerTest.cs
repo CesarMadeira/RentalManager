@@ -53,6 +53,6 @@ public class RegisterNewMotorcycleCommandHandlerTest
 
         await _motorcycleRepository.Delete(request.Id);
 
-        Assert.AreEqual("Placa já cadastrada, entre em contato com o suporte!", message);
+        Assert.AreEqual("Placa já foi cadastrada!", message);
     }
 }

@@ -1,4 +1,5 @@
-﻿using RentalManager.Domain.ValueObject;
+﻿using RentalManager.Domain.Exceptions;
+using RentalManager.Domain.ValueObject;
 
 namespace RentalManager.Domain.Entities
 {
@@ -17,7 +18,7 @@ namespace RentalManager.Domain.Entities
             if (documentType != "A" &&
                 documentType != "B" &&
                 documentType != "A+B")
-                throw new ArgumentException("Categoria da CNH não permitida");
+                throw new BusinessException("Categoria da CNH não permitida!");
 
             DocumentType = documentType;
         }

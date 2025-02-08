@@ -68,7 +68,7 @@ public class RegisterDeliveryPersonCommandHandlerTest
             message = ex.Message;
         }
 
-        Assert.AreEqual("Categoria da CNH não permitida", message);
+        Assert.AreEqual("Categoria da CNH não permitida!", message);
 
     }
 }

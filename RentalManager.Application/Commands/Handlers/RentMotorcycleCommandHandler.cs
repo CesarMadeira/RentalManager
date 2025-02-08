@@ -1,6 +1,7 @@
 ﻿using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Domain.Entities;
+using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Application.Commands.Handlers;
@@ -25,14 +26,14 @@ public class RentMotorcycleCommandHandler : IRentMotorcycleCommandHandler
     {
         var motorcycle = await _motorcycleRepository.Get(request.MotorcycleId);
         if (motorcycle == null)
-            throw new Exception("Moto não cadastrada!");
+            throw new BusinessException("Moto não cadastrada!");
 
         var deliveryPerson = await _deliveryPersonRepository.Get(request.DeliveryPersonId);
         if (deliveryPerson == null)
-            throw new Exception("Entregador não cadastrado!");
+            throw new BusinessException("Entregador não cadastrado!");
         
         if (!deliveryPerson.DocumentType.Contains("A"))
-            throw new Exception("Categoria da CNH não permitida para a locação!");
+            throw new BusinessException("Categoria da CNH não permitida para a locação!");
 
         var rent = new Rent(
             request.Id,

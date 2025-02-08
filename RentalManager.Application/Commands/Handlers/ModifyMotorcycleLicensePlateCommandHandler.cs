@@ -1,5 +1,6 @@
 ﻿using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
+using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Application.Commands.Handlers;
@@ -19,7 +20,7 @@ public class ModifyMotorcycleLicensePlateCommandHandler : IModifyMotorcycleLicen
         
         if (motorcycle == null)
         {
-            throw new Exception("Moto não encontrada!");
+            throw new BusinessException("Moto não encontrada!");
         }
 
         motorcycle.SetLicencePlate(request.LicencePlate);

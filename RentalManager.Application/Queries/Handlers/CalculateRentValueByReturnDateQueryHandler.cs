@@ -37,4 +37,6 @@ public class CalculateRentValueByReturnDateQueryHandler : ICalculateRentValueByR
         }
         return new CalculateRentValueByReturnDateQueryResponse { RentalValue = total };
     }
+
+    //private decimal CalculateRentValue()
 }
