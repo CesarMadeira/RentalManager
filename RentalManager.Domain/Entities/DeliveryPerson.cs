@@ -1,4 +1,6 @@
-﻿namespace RentalManager.Domain.Entities
+﻿using RentalManager.Domain.ValueObject;
+
+namespace RentalManager.Domain.Entities
 {
     public class DeliveryPerson
     {
@@ -7,18 +9,18 @@
         {
             Id = id;
             Name = name;
-            CNPJ = cnpj;
+            CNPJ = new CNPJ(cnpj);
             DateOfBirth = dateOfBirth;
-            DocumentNumber = documentNumber;
+            DocumentNumber = new CNH(documentNumber);
             DocumentType= documentType;
             DocumentImage = documentImage;
         }
 
         public string Id { get; private set; }
         public string Name { get; private set; }
-        public string CNPJ { get; private set; }
+        public CNPJ CNPJ { get; private set; }
         public DateTime DateOfBirth { get; private set; }
-        public string DocumentNumber { get; private set; }
+        public CNH DocumentNumber { get; private set; }
         public string DocumentType { get; private set; }
         public string DocumentImage { get; private set; }
     }

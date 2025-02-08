@@ -34,7 +34,7 @@ namespace RentalManagerTest.Queries
         [TestMethod("Deve calcular valor a ser pago")]
         public async Task ShouldCalculateRentValueByReturnDate()
         {
-            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "123456", DateTime.Now, "123456", "A", null);
+            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "81388311000171", DateTime.Now, "34569709670", "A", null);
             await _deliveryPersonRepository.Create(deliveryPerson);
 
             var motorcycle = new Motorcycle(Guid.NewGuid().ToString(), "CDX-9999", "Sport", 2025);
@@ -59,7 +59,7 @@ namespace RentalManagerTest.Queries
         [TestMethod("Deve calcular valor a ser pago com data anterior a previsão")]
         public async Task ShouldCalculateRentValueByReturnDateBeforeForecast()
         {
-            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "123456", DateTime.Now, "123456", "A", null);
+            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "56262112000175", DateTime.Now, "96328255924", "A", null);
             await _deliveryPersonRepository.Create(deliveryPerson);
 
             var motorcycle = new Motorcycle(Guid.NewGuid().ToString(), "CDX-9999", "Sport", 2025);
@@ -84,7 +84,7 @@ namespace RentalManagerTest.Queries
         [TestMethod("Deve calcular valor a ser pago com data posterior a previsão")]
         public async Task ShouldCalculateRentValueByReturnDateAfterForecast()
         {
-            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "123456", DateTime.Now, "123456", "A", null);
+            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "33815534000125", DateTime.Now, "32654675141", "A", null);
             await _deliveryPersonRepository.Create(deliveryPerson);
 
             var motorcycle = new Motorcycle(Guid.NewGuid().ToString(), "CDX-9999", "Sport", 2025);
@@ -109,7 +109,7 @@ namespace RentalManagerTest.Queries
         [TestMethod("Deve calcular valor a ser pago com quantidade minima de dias")]
         public async Task ShouldCalculateRentValueByReturnDateAfterForecastWithMinimumDays()
         {
-            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "123456", DateTime.Now, "123456", "A", null);
+            var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "29842136000120", DateTime.Now, "77541118740", "A", null);
             await _deliveryPersonRepository.Create(deliveryPerson);
 
             var motorcycle = new Motorcycle(Guid.NewGuid().ToString(), "CDX-9999", "Sport", 2025);

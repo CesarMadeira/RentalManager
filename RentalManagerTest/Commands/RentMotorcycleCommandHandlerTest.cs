@@ -26,7 +26,7 @@ public class RentMotorcycleCommandHandlerTest
     [TestMethod("Deve alugar uma moto")]
     public async Task ShouldRentMotorcycle()
     {
-        var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "123456", DateTime.Now, "123456", "A", null);
+        var deliveryPerson = new DeliveryPerson(Guid.NewGuid().ToString(), "teste", "33460414000152", DateTime.Now, "13186530377", "A", null);
         await _deliveryPersonRepository.Create(deliveryPerson);
 
         var motorcycle = new Motorcycle(Guid.NewGuid().ToString(), "CDX-9999", "Sport", 2025);

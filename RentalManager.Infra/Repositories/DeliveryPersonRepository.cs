@@ -22,9 +22,9 @@ public class DeliveryPersonRepository : IDeliveryPersonRepository
         {
             id = deliveryPerson.Id,
             name = deliveryPerson.Name,
-            cnpj = deliveryPerson.CNPJ,
+            cnpj = deliveryPerson.CNPJ.Value,
             dateOfBirth = deliveryPerson.DateOfBirth,
-            documentNumber = deliveryPerson.DocumentNumber,
+            documentNumber = deliveryPerson.DocumentNumber.Value,
             documentType = deliveryPerson.DocumentType
         });
     }

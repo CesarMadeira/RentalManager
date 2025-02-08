@@ -26,9 +26,9 @@ public class RegisterDeliveryPersonCommandHandlerTest
         {
             Id = Guid.NewGuid().ToString(),
             Name = "João da Silva",
-            CNPJ = "12345678910",
+            CNPJ = "81388311000171",
             DateOfBirth = DateTime.Now,
-            DocumentNumber = "123456789",
+            DocumentNumber = "34569709670",
             DocumentType = "A"
         };
         await command.Handle(request);
@@ -38,9 +38,9 @@ public class RegisterDeliveryPersonCommandHandlerTest
 
         Assert.AreEqual(deliveryPerson.Id, request.Id);
         Assert.AreEqual(deliveryPerson.Name, request.Name);
-        Assert.AreEqual(deliveryPerson.CNPJ, request.CNPJ);
+        Assert.AreEqual(deliveryPerson.CNPJ.Value, request.CNPJ);
         Assert.AreEqual(deliveryPerson.DateOfBirth.Date, request.DateOfBirth.Date);
-        Assert.AreEqual(deliveryPerson.DocumentNumber, request.DocumentNumber);
+        Assert.AreEqual(deliveryPerson.DocumentNumber.Value, request.DocumentNumber);
         Assert.AreEqual(deliveryPerson.DocumentType, request.DocumentType);
     }
 }
