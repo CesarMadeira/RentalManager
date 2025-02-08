@@ -36,7 +36,7 @@ public class MotorcycleController : ControllerBase
         {
             LicencePlate = placa
         });
-        return Ok(response.Item);
+        return Ok(new { data = response.Item });
     }
 
     [HttpGet("{id}")]
@@ -46,14 +46,14 @@ public class MotorcycleController : ControllerBase
         {
             MotorcycleId = id
         });
-        return Ok(response);
+        return Ok(new { data = response });
     }
 
     [HttpPost]
     public async Task<IActionResult> Post(RegisterNewMotorcycleCommandRequest request)
     {
         await _registerNewMotorcycleCommandHandler.Handle(request);
-        return Ok(new { message = "Moto cadastrada com sucesso!" });
+        return Created("", new { message = "Moto cadastrada com sucesso!" });
     }
 
     [HttpPut("{id}/placa")]
@@ -61,7 +61,7 @@ public class MotorcycleController : ControllerBase
     {
         request.MotorcycleId = id;
         await _modifyMotorcycleLicensePlateCommandHandler.Handle(request);
-        return Ok(new { message = "Placa Alterada com sucesso!" });
+        return Ok(new { message = "Placa modificada com sucesso!" });
     }
 
     [HttpDelete("{id}")]

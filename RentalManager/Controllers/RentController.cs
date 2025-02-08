@@ -32,6 +32,6 @@ public class RentController : ControllerBase
     {
         request.RentId = id;
         var response = await _calculateRentValueByReturnDateQueryHandler.Handle(request);
-        return Ok(response);
+        return Ok(new { data = response });
     }
 }

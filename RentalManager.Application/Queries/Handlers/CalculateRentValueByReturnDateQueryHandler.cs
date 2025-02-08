@@ -1,6 +1,7 @@
 ﻿using RentalManager.Application.Interfaces.Queries;
 using RentalManager.Application.Queries.Request;
 using RentalManager.Application.Queries.Response;
+using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
 
 namespace RentalManager.Application.Queries.Handlers;
@@ -19,6 +20,8 @@ public class CalculateRentValueByReturnDateQueryHandler : ICalculateRentValueByR
         // TODO refatorar calculo do valor total
 
         var rent = await _rentRepository.Get(request.RentId);
+        if (rent == null)
+            throw new BusinessException("Locação não encontrada!");
 
         if (request.EndDate == rent.EndForecast)
             return new CalculateRentValueByReturnDateQueryResponse { RentalValue = rent.CalculateTotalValue() };

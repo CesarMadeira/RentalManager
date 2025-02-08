@@ -20,7 +20,7 @@ public class DeliveryPersonController : ControllerBase
     public async Task<IActionResult> Post(RegisterDeliveryPersonCommandRequest request)
     {
         await _registerDeliveryPersonCommandHandler.Handle(request);
-        return Ok(new { message = "Entregador cadastrado com sucesso!"});
+        return Created("", new { message = "Entregador cadastrado com sucesso!"});
     }
 
     [HttpPost("{id}/cnh")]
