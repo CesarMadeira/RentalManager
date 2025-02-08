@@ -4,6 +4,7 @@ using RentalManager.Application.Interfaces.Queries;
 using RentalManager.Application.Queries.Handlers;
 using RentalManager.Domain.Interfaces.Respositories;
 using RentalManager.Infra.Repositories;
+using RentalManager.Infra.Worker;
 
 namespace RentalManager.Extensions;
 
@@ -25,6 +26,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDeliveryPersonRepository, DeliveryPersonRepository>();
         services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
         services.AddScoped<IRentRepository, RentRepository>();
+
+        //worker
+        services.AddHostedService<ConsumeQueueMessagesBackgroundService>();
 
         ////services
         //services.AddScoped<IEventoProdutoService, EventoProdutoService>();
