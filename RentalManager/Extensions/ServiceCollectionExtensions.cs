@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRemoveMotorcycleCommandHandler, RemoveMotorcycleCommandHandler>();
         services.AddScoped<IModifyMotorcycleLicensePlateCommandHandler, ModifyMotorcycleLicensePlateCommandHandler>();
         services.AddScoped<IRegisterDeliveryPersonCommandHandler, RegisterDeliveryPersonCommandHandler>();
+        services.AddScoped<IRentMotorcycleCommandHandler, RentMotorcycleCommandHandler>();
 
         //queries
         services.AddScoped<ISearchMotorcycleByLicensePlateQueryHandler, SearchMotorcycleByLicensePlateQueryHandler>();

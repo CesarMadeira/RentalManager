@@ -24,6 +24,9 @@ public class RentMotorcycleCommandHandler : IRentMotorcycleCommandHandler
 
     public async Task Handle(RentMotorcycleCommandRequest request)
     {
+        if (request.Plan == 0)
+            throw new BusinessException("Escolha um dos planos: 7, 15, 30, 45 ou 50!");
+
         var motorcycle = await _motorcycleRepository.Get(request.MotorcycleId);
         if (motorcycle == null)
             throw new BusinessException("Moto não cadastrada!");

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentalManager.Application.Commands.Requests;
+using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Application.Interfaces.Queries;
 using RentalManager.Application.Queries.Request;
 
@@ -8,10 +10,14 @@ namespace RentalManager.Controllers;
 [Route("locacao")]
 public class RentController : ControllerBase
 {
+    private readonly IRentMotorcycleCommandHandler _rentMotorcycleCommandHandler;
     private readonly ICalculateRentValueByReturnDateQueryHandler _calculateRentValueByReturnDateQueryHandler;
 
-    public RentController(ICalculateRentValueByReturnDateQueryHandler calculateRentValueByReturnDateQueryHandler)
+    public RentController(
+        IRentMotorcycleCommandHandler rentMotorcycleCommandHandler,
+        ICalculateRentValueByReturnDateQueryHandler calculateRentValueByReturnDateQueryHandler)
     {
+        _rentMotorcycleCommandHandler = rentMotorcycleCommandHandler;
         _calculateRentValueByReturnDateQueryHandler = calculateRentValueByReturnDateQueryHandler;
     }
 
@@ -22,9 +28,10 @@ public class RentController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post()
+    public async Task<IActionResult> Post(RentMotorcycleCommandRequest request)
     {
-        return Ok();
+        await _rentMotorcycleCommandHandler.Handle(request);
+        return Created("", new { message = "Locação criada com sucesso!" });
     }
 
     [HttpPut("{id}/devolucao")]
