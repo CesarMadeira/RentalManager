@@ -22,7 +22,6 @@ public class ModifyMotorcycleLicensePlateCommandHandler : IModifyMotorcycleLicen
             throw new Exception("Moto não encontrada!");
         }
 
-        // TODO validar se a placa é valida
         motorcycle.SetLicencePlate(request.LicencePlate);
         await _motorcycleRepository.Save(motorcycle);
     }

@@ -16,7 +16,6 @@ public class RegisterNewMotorcycleCommandHandler: IRegisterNewMotorcycleCommandH
 
     public async Task Handle(RegisterNewMotorcycleCommandRequest request)
     {
-        // TODO validar campos obrigatorios - Identificador, Ano, Modelo e Placa
         var validateMotocyle = await _motorcycleRepository.GetByLicencePlate(request.LicencePlate);
         if (validateMotocyle != null)
         {
