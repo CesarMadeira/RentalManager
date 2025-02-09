@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Responses\" />
+    <Folder Include="Commands\Handlers\Events\" />
   </ItemGroup>
 
 </Project>

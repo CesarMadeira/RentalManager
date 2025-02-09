@@ -10,7 +10,7 @@ public class SearchMotorcycleByLicensePlateQueryResponse
 public class SearchMotorcycleByLicensePlateQueryResponseItem
 {
     [JsonInclude, JsonPropertyName("identificador")]
-    public string Identifier { get; set; }
+    public string Id { get; set; }
     [JsonInclude, JsonPropertyName("ano")]
     public int Year { get; set; }
     [JsonInclude, JsonPropertyName("modelo")]

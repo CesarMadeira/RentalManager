@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using RentalManager.Domain.Entities;
 using RentalManager.Domain.Interfaces.Respositories;
+using RentalManager.Domain.ValueObject;
 using RentalManager.Infra.Dapper;
 using System.Data;
 
@@ -22,9 +23,9 @@ public class DeliveryPersonRepository : IDeliveryPersonRepository
         {
             id = deliveryPerson.Id,
             name = deliveryPerson.Name,
-            cnpj = deliveryPerson.CNPJ,
+            cnpj = deliveryPerson.CNPJ.Value,
             dateOfBirth = deliveryPerson.DateOfBirth,
-            documentNumber = deliveryPerson.DocumentNumber,
+            documentNumber = deliveryPerson.DocumentNumber.Value,
             documentType = deliveryPerson.DocumentType
         });
     }
@@ -46,13 +47,43 @@ public class DeliveryPersonRepository : IDeliveryPersonRepository
         return queryResult.FirstOrDefault();
     }
 
-    public async Task Delete(string deliveryPersonId)
+    public async Task Delete(string id)
     {
         var query = @"delete from delivery_person where id = @id";
-        await _db.ExecuteAsync(query, new
-        {
-            id = deliveryPersonId
-        });
+        await _db.ExecuteAsync(query, new { id = id });
     }
 
+    public async Task<DeliveryPerson> GetByCNPJ(CNPJ cnpj)
+    {
+        var query = @"
+                    select
+	                    id,
+	                    name,
+	                    cnpj,
+	                    date_of_birth as dateOfBirth,
+	                    document_number as documentNumber,
+	                    document_type as documentType,
+	                    document_image as documentImage
+                    from delivery_person
+                    where cnpj = @cnpj";
+        var queryResult = await _db.QueryAsync<DeliveryPerson>(query, new { cnpj = cnpj.Value });
+        return queryResult.FirstOrDefault();
+    }
+
+    public async Task<DeliveryPerson> GetByCNH(CNH cnh)
+    {
+        var query = @"
+                    select
+	                    id,
+	                    name,
+	                    cnpj,
+	                    date_of_birth as dateOfBirth,
+	                    document_number as documentNumber,
+	                    document_type as documentType,
+	                    document_image as documentImage
+                    from delivery_person
+                    where document_number = @cnh";
+        var queryResult = await _db.QueryAsync<DeliveryPerson>(query, new { cnh = cnh.Value });
+        return queryResult.FirstOrDefault();
+    }
 }

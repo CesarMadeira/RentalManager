@@ -14,4 +14,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RentalManager.Application\RentalManager.Application.csproj" />
+    <ProjectReference Include="..\RentalManager.Domain\RentalManager.Domain.csproj" />
+    <ProjectReference Include="..\RentalManager.Infra\RentalManager.Infra.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/azure-iot-edgeagent-deployment-1.1.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

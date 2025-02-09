@@ -1,7 +1,12 @@
-﻿namespace RentalManager.Application.Commands.Requests;
+﻿using System.Text.Json.Serialization;
+
+namespace RentalManager.Application.Commands.Requests;
 
 public class ModifyMotorcycleLicensePlateCommandRequest
 {
-    public string MotorcycleId { get; set; }
+    [JsonIgnore]
+    public string? MotorcycleId { get; set; }
+
+    [JsonInclude, JsonPropertyName("placa")]
     public string LicencePlate { get; set; }
 }
