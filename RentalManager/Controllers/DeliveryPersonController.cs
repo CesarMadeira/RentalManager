@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
+using RentalManager.Infra;
 
 namespace RentalManager.Controllers;
 
@@ -24,7 +25,7 @@ public class DeliveryPersonController : ControllerBase
     }
 
     [HttpPost("{id}/cnh")]
-    public IActionResult SendPhotoOfDocument(string id)
+    public async Task<IActionResult> SendPhotoOfDocument(string id)
     {
         return Ok();
     }

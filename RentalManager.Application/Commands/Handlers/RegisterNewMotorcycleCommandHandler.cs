@@ -2,17 +2,24 @@
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Domain.Entities;
 using RentalManager.Domain.Exceptions;
+using RentalManager.Domain.Interfaces.Messages.Producers;
 using RentalManager.Domain.Interfaces.Respositories;
+using RentalManager.Domain.Mappers;
 
 namespace RentalManager.Application.Commands.Handlers;
 
 public class RegisterNewMotorcycleCommandHandler: IRegisterNewMotorcycleCommandHandler
 {
     private readonly IMotorcycleRepository _motorcycleRepository;
+    private readonly IMotorcycleCreatedEventProducer _motorcycleCreatedEventProducer;
 
-    public RegisterNewMotorcycleCommandHandler(IMotorcycleRepository motorcycleRepository)
+    public RegisterNewMotorcycleCommandHandler(
+        IMotorcycleRepository motorcycleRepository,
+        IMotorcycleCreatedEventProducer motorcycleCreatedEventProducer
+    )
     {
         _motorcycleRepository = motorcycleRepository;
+        _motorcycleCreatedEventProducer = motorcycleCreatedEventProducer;
     }
 
     public async Task Handle(RegisterNewMotorcycleCommandRequest request)
@@ -24,9 +31,8 @@ public class RegisterNewMotorcycleCommandHandler: IRegisterNewMotorcycleCommandH
         }
 
         var motorcycle = new Motorcycle(request.Id, request.LicencePlate, request.Model, request.Year);
-
         await _motorcycleRepository.Create(motorcycle);
-
-        // TODO publicar evento de criação da moto
+        
+        await _motorcycleCreatedEventProducer.PublishAsync(motorcycle.MotorcycleToMotorcycleCreatedEvent());
     }
 }

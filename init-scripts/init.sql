@@ -1,10 +1,17 @@
-
-/*
 CREATE TABLE motorcycle (
     identifier VARCHAR(100),
     licence_plate VARCHAR(100),
     model VARCHAR(100),
     year int
+);
+CREATE TABLE motorcycle_event (
+	id VARCHAR(100),
+    motorcycle_id VARCHAR(100),
+    licence_plate VARCHAR(100),
+    model VARCHAR(100),
+    year int,
+    type VARCHAR(100),
+    created_at timestamp
 );
 CREATE TABLE delivery_person (
     id VARCHAR(100),
@@ -24,17 +31,3 @@ CREATE TABLE rent (
 	end_forecast date,
     plan int
 );
-*/
-
-
--- delete from delivery_person
-select * from delivery_person;
-
---delete from motorcycle
-select * from motorcycle;
-
--- delete from rent
-select * from rent;
-
-
-

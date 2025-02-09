@@ -2,7 +2,11 @@
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Application.Interfaces.Queries;
 using RentalManager.Application.Queries.Handlers;
+using RentalManager.Domain.Interfaces.Messages.Consumers;
+using RentalManager.Domain.Interfaces.Messages.Producers;
 using RentalManager.Domain.Interfaces.Respositories;
+using RentalManager.Infra.Messages.Consumers;
+using RentalManager.Infra.Messages.Producers;
 using RentalManager.Infra.Repositories;
 using RentalManager.Infra.Worker;
 
@@ -27,15 +31,17 @@ public static class ServiceCollectionExtensions
 
         //repositorios
         services.AddScoped<IDeliveryPersonRepository, DeliveryPersonRepository>();
-        services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
         services.AddScoped<IRentRepository, RentRepository>();
+        services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+        services.AddSingleton<IMotorcycleEventRepository, MotorcycleEventRepository>();
 
         //worker
         services.AddHostedService<ConsumeQueueMessagesBackgroundService>();
 
-        ////services
-        //services.AddScoped<IEventoProdutoService, EventoProdutoService>();
-        //services.AddScoped<IEventoCarteiraService, EventoCarteiraService>();
-        //services.AddScoped<IEmailService, EmailService>();
+        // consumer
+        services.AddSingleton<IMotorcycleCreatedEventConsumer, MotorcycleCreatedEventConsumer>();
+
+        // producers
+        services.AddSingleton<IMotorcycleCreatedEventProducer, MotorcycleCreatedEventProducer>();
     }
 }

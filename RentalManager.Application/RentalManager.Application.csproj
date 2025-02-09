@@ -15,4 +15,8 @@
     <ProjectReference Include="..\RentalManager.Infra\RentalManager.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Handlers\Events\" />
+  </ItemGroup>
+
 </Project>
