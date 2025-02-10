@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\Handlers\Events\**" />
+    <EmbeddedResource Remove="Commands\Handlers\Events\**" />
+    <None Remove="Commands\Handlers\Events\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RentalManager.Domain\RentalManager.Domain.csproj" />
     <ProjectReference Include="..\RentalManager.Infra\RentalManager.Infra.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\Handlers\Events\" />
   </ItemGroup>
 
 </Project>

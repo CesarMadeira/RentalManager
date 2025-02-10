@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentalManager.Application.Commands.Requests;
 using RentalManager.Application.Interfaces.Commands;
-using RentalManager.Infra;
 
 namespace RentalManager.Controllers;
 
@@ -10,11 +9,14 @@ namespace RentalManager.Controllers;
 public class DeliveryPersonController : ControllerBase
 {
     private readonly IRegisterDeliveryPersonCommandHandler _registerDeliveryPersonCommandHandler;
+    private readonly ISendPhotoOfDocumentCommandHandler _sendPhotoOfDocumentCommandHandler;
 
     public DeliveryPersonController(
-        IRegisterDeliveryPersonCommandHandler registerDeliveryPersonCommandHandler
+        IRegisterDeliveryPersonCommandHandler registerDeliveryPersonCommandHandler,
+        ISendPhotoOfDocumentCommandHandler sendPhotoOfDocumentCommandHandler
     ) {
         _registerDeliveryPersonCommandHandler = registerDeliveryPersonCommandHandler;
+        _sendPhotoOfDocumentCommandHandler = sendPhotoOfDocumentCommandHandler;
     }
 
     [HttpPost]
@@ -25,8 +27,10 @@ public class DeliveryPersonController : ControllerBase
     }
 
     [HttpPost("{id}/cnh")]
-    public async Task<IActionResult> SendPhotoOfDocument(string id)
+    public async Task<IActionResult> SendPhotoOfDocument(string id, SendPhotoOfDocumentCommandRequest request)
     {
-        return Ok();
+        request.Id = id;
+        await _sendPhotoOfDocumentCommandHandler.Handle(request);
+        return Ok(new { message = "Foto atualizada com sucesso!" });
     }
 }

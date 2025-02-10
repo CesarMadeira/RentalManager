@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Options;
 using RentalManager.Extensions;
+using RentalManager.Infra.AmazonS3;
+using RentalManager.Infra.AmazonS3.Model;
 using RentalManager.Infra.Dapper;
 using RentalManager.Infra.RabbitMQ;
 using RentalManager.Infra.RabbitMQ.Model;
@@ -16,6 +18,14 @@ builder.Services.AddSingleton<RabbitMqConnection>(provider =>
     var options = provider.GetRequiredService<IOptions<RabbitMqSettings>>();
     return new RabbitMqConnection(options);
 });
+
+builder.Services.Configure<AmazonSettings>(builder.Configuration.GetSection("AmazonSettings"));
+builder.Services.AddSingleton<AmazonClientFactory>(provider =>
+{
+    var options = provider.GetRequiredService<IOptions<AmazonSettings>>();
+    return new AmazonClientFactory(options);
+});
+
 
 // Add services to the container.
 builder.Services.RegisterApiServices();

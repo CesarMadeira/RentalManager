@@ -18,12 +18,11 @@ public class MotorcycleCreatedEventProducer : IMotorcycleCreatedEventProducer
 
     public async Task PublishAsync(MotorcycleEvent motorcycleCreatedEvent)
     {
-        // TODO alterar o nome da fila
-        await _channel.QueueDeclareAsync(queue: "product_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+        await _channel.QueueDeclareAsync(queue: "motorcycle_event_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
         var message = JsonSerializer.Serialize(motorcycleCreatedEvent);
         var body = Encoding.UTF8.GetBytes(message);
 
-        await _channel.BasicPublishAsync("", "product_queue", mandatory: true, body: body);
+        await _channel.BasicPublishAsync("", "motorcycle_event_queue", mandatory: true, body: body);
     }
 }
