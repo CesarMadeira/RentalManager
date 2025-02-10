@@ -24,8 +24,7 @@ public class MotorcycleCreatedEventConsumer : IMotorcycleCreatedEventConsumer
     }
     public async Task StartConsuming(CancellationToken stoppingToken)
     {
-        // TODO alterar o nome da fila
-        await _channel.QueueDeclareAsync(queue: "product_queue", durable: false, exclusive: false, autoDelete: false, arguments: null, cancellationToken: stoppingToken);
+        await _channel.QueueDeclareAsync(queue: "motorcycle_event_queue", durable: false, exclusive: false, autoDelete: false, arguments: null, cancellationToken: stoppingToken);
 
         var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.ReceivedAsync += async (model, ea) =>
@@ -52,6 +51,6 @@ public class MotorcycleCreatedEventConsumer : IMotorcycleCreatedEventConsumer
             }
         };
 
-        await _channel.BasicConsumeAsync(queue: "product_queue", autoAck: false, consumer: consumer, stoppingToken);
+        await _channel.BasicConsumeAsync(queue: "motorcycle_event_queue", autoAck: false, consumer: consumer, stoppingToken);
     }
 }
