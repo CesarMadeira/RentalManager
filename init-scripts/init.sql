@@ -20,7 +20,7 @@ CREATE TABLE delivery_person (
     date_of_birth date,
     document_number VARCHAR(100),
     document_type VARCHAR(2),
-    document_image VARCHAR(100)
+    document_image VARCHAR(1000)
 );
 CREATE TABLE rent (
     id VARCHAR(100),
