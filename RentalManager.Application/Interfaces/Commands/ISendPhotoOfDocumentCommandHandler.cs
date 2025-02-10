@@ -1,8 +1,9 @@
 ﻿using RentalManager.Application.Commands.Requests;
+using RentalManager.Application.Commands.Responses;
 
 namespace RentalManager.Application.Interfaces.Commands;
 
 public interface ISendPhotoOfDocumentCommandHandler
 {
-    Task Handle(SendPhotoOfDocumentCommandRequest request);
+    Task<SendPhotoOfDocumentCommandResponse> Handle(SendPhotoOfDocumentCommandRequest request);
 }

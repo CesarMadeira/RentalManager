@@ -1,5 +1,6 @@
 ﻿using Amazon.S3.Transfer;
 using RentalManager.Application.Commands.Requests;
+using RentalManager.Application.Commands.Responses;
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
@@ -20,7 +21,7 @@ public class SendPhotoOfDocumentCommandHandler : ISendPhotoOfDocumentCommandHand
         _deliveryPersonRepository = deliveryPersonRepository;
     }
 
-    public async Task Handle(SendPhotoOfDocumentCommandRequest request)
+    public async Task<SendPhotoOfDocumentCommandResponse> Handle(SendPhotoOfDocumentCommandRequest request)
     {
         string base64Data = request.ImagemBase64.Contains(",")
             ? request.ImagemBase64.Split(',')[1]
@@ -59,6 +60,8 @@ public class SendPhotoOfDocumentCommandHandler : ISendPhotoOfDocumentCommandHand
         deliveryPerson.SetDocumentImage($"https://{bucketName}.s3.us-east-1.amazonaws.com/{fileName}");
 
         await _deliveryPersonRepository.Save(deliveryPerson);
+
+        return new SendPhotoOfDocumentCommandResponse { URL = deliveryPerson.DocumentImage };
     }
 
     private static bool IsPng(byte[] bytes)

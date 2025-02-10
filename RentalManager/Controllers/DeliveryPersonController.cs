@@ -30,7 +30,7 @@ public class DeliveryPersonController : ControllerBase
     public async Task<IActionResult> SendPhotoOfDocument(string id, SendPhotoOfDocumentCommandRequest request)
     {
         request.Id = id;
-        await _sendPhotoOfDocumentCommandHandler.Handle(request);
-        return Ok(new { message = "Foto atualizada com sucesso!" });
+        var response = await _sendPhotoOfDocumentCommandHandler.Handle(request);
+        return Ok(new { message = "Foto atualizada com sucesso!", data = response });
     }
 }
