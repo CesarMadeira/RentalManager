@@ -2,7 +2,6 @@
 using RentalManager.Application.Interfaces.Commands;
 using RentalManager.Domain.Exceptions;
 using RentalManager.Domain.Interfaces.Respositories;
-using RentalManager.Infra.Repositories;
 
 namespace RentalManager.Application.Commands.Handlers
 {

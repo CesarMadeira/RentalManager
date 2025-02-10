@@ -30,6 +30,28 @@ public class DeliveryPersonRepository : IDeliveryPersonRepository
         });
     }
 
+    public async Task Save(DeliveryPerson deliveryPerson)
+    {
+        var query = @"update delivery_person set
+                        name = @Name,
+                        cnpj = @CNPJ,
+                        date_of_birth = @DateOfBirth,
+                        document_number = @documentNumber,
+                        document_type = @documentType,
+                        document_image = @documentImage
+                      where id = @Id";
+        await _db.ExecuteAsync(query, new
+        {
+            Id = deliveryPerson.Id,
+            name = deliveryPerson.Name,
+            CNPJ = deliveryPerson.CNPJ.Value,
+            DateOfBirth = deliveryPerson.DateOfBirth,
+            DocumentNumber = deliveryPerson.DocumentNumber.Value,
+            DocumentType = deliveryPerson.DocumentType,
+            DocumentImage = deliveryPerson.DocumentImage
+        });
+    }
+
     public async Task<DeliveryPerson> Get(string id)
     {
         var query = @"

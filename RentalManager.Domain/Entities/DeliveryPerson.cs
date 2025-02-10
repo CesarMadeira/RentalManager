@@ -30,5 +30,10 @@ namespace RentalManager.Domain.Entities
         public CNH DocumentNumber { get; private set; }
         public string DocumentType { get; private set; }
         public string DocumentImage { get; private set; }
+
+        public void SetDocumentImage(string image)
+        {
+            DocumentImage = image;
+        }
     }
 }
